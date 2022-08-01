@@ -11,7 +11,8 @@ sharedMappings.register(
 module.exports = {
   output: {
     uniqueName: "websiteHostAccount",
-    publicPath: "auto"
+    publicPath: "http://localhost:1337/",
+    scriptType: 'text/javascript'
   },
   optimization: {
     runtimeChunk: false
@@ -28,24 +29,17 @@ module.exports = {
     new ModuleFederationPlugin({
         library: { type: "module" },
 
-        // For remotes (please adjust)
-        // name: "websiteHostAccount",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './/src/app/app.component.ts',
-        // },        
-        
         // For hosts (please adjust)
-        // remotes: {
-        //     "mfe1": "http://localhost:3000/remoteEntry.js",
+        remotes: {
+            notificationPreferences: "notification-preferences@http://localhost:1338/remoteEntry.js",
 
-        // },
+        },
 
         shared: share({
-          "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
-          "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
-          "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' }, 
-          "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
+          "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto', eager: true}, 
+          "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto', eager: true }, 
+          "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto', eager: true }, 
+          "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto', eager: true },
 
           ...sharedMappings.getDescriptors()
         })
