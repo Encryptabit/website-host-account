@@ -1,0 +1,5 @@
+{
+	"notification-preferences": "http://localhost:1338/remoteEntry.js",
+	"banking":  "http://localhost:1339/remoteEntry.js",
+	"loans": "http://localhost:1340/remoteEntry.js"
+}

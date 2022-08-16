@@ -14,13 +14,31 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'banking',
+    loadChildren: () =>
+      loadRemoteModule({
+        type: 'manifest',
+        remoteName: 'banking',
+        exposedModule: './Module',
+      }).then(m => m.BankingModule),
+  },
+  {
+    path: 'loans',
+    loadChildren: () =>
+      loadRemoteModule({
+        type: 'manifest',
+        remoteName: 'loans',
+        exposedModule: './Module',
+      }).then(m => m.LoansModule),
+  },
+  {
     path: 'notification-preferences',
     loadChildren: () =>
       loadRemoteModule({
-        remoteEntry: 'http://localhost:1338/remoteEntry.js',
-        remoteName: 'notificationPreferences',
+        type: 'manifest',
+        remoteName: 'notification-preferences',
         exposedModule: './Module',
-      }).then(m => m.NotificationPreferencesModule),
+      }).then((m) => m.NotificationPreferencesModule),
   }
 ];
 
